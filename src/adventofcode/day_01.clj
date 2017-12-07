@@ -20,7 +20,7 @@
                input
                clojure.string/trim-newline
                (partial clojure.string/split ", ")]
-    (map parse-move moves))
+    (map parse-move moves)))
 
 (defn rotate
   "Rotates a unit vector left or right 90 degrees."

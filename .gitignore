@@ -1,0 +1,21 @@
+# Parts of this file were adapted from
+# GitHub’s collection of .gitignore file templates
+# which are Copyright (c) 2017 GitHub, Inc.
+# and released under the MIT License.
+# For more details, visit the project page:
+# https://github.com/github/gitignore
+
+/solutions/
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/lib/
+/classes/
+/target/
+/checkouts/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.lein-failures
+.nrepl-port

@@ -1,0 +1,33 @@
+---
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/project
+    docker:
+      - image: circleci/clojure:lein-2.8.1
+    environment:
+      LEIN_ROOT: nbd
+      JVM_OPTS: -Xmx3200m
+    steps:
+      - checkout
+      - restore_cache:
+          key: m2-{{ arch }}-{{ checksum "project.clj" }}
+      - run:
+          name: Install dependencies
+          command: lein deps
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: m2-{{ arch}}-{{ checksum "project.clj" }}
+      - run:
+          name: Test, run, and build
+          command: lein do test, run, uberjar
+      - run:
+          name: Move artifacts
+          command: |
+            mkdir artifacts
+            mv target/uberjar/*.jar artifacts
+      - store_artifacts:
+          path: artifacts
+          destination: uberjar

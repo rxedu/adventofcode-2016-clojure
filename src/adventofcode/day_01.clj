@@ -11,15 +11,15 @@
 (def start {:dir [0, 1], :pos [0, 0]})
 
 (defn parse-move
-  [moves]
-  (let [parse-move]))
+  [move]
+  (let [dirs {"L" :left "R" :right}
+        dir (first move)
+        n (clojure.string/join (rest move))]
+    (assoc {} :rot (dirs (str dir)) :steps (Integer/parseInt n))))
 
 (defn parse-input
   [input]
-  (let [moves (->
-               input
-               clojure.string/trim-newline
-               (partial clojure.string/split ", ")]
+  (let [moves (clojure.string/split (clojure.string/trim-newline input) #", ")]
     (map parse-move moves)))
 
 (defn rotate
@@ -47,13 +47,14 @@
          new-pos (move new-dir steps pos)]
      (assoc {} :dir new-dir :pos new-pos))))
 
-; (
-;  parse-input
-;  (partial (reduce rotate-and-move start))
-;  distance
-;  )
+(def parse-move-and-get-distance
+  (comp
+   distance
+   (partial :pos)
+   (partial reduce rotate-and-move start)
+   parse-input))
 
 (defn solve
   "Given the input for the day, returns the solution."
   [input]
-  ())
+  [(parse-move-and-get-distance input)])

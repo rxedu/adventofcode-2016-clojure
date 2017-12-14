@@ -50,6 +50,16 @@
 (def trace-path
   (partial reduce #(conj %1 (rotate-and-move (last %1) %2)) [start]))
 
+(defn stop-at-first-revisit
+  [col]
+  (reduce
+   (fn [visited current]
+     (let [next (conj visited current)]
+       (if (some #{current} visited)
+         (reduced next)
+         next)))
+   col))
+
 (def parse-move-and-get-distance
   (comp
    distance
@@ -58,7 +68,17 @@
    trace-path
    parse-input))
 
+(def parse-move-and-get-distance-to-first-revisit
+  (comp
+   distance
+   last
+   stop-at-first-revisit
+   (partial map #(get % :pos))
+   trace-path
+   parse-input))
+
 (defn solve
   "Given the input for the day, returns the solution."
   [input]
-  [(parse-move-and-get-distance input)])
+  [(parse-move-and-get-distance input)
+   (parse-move-and-get-distance-to-first-revisit input)])

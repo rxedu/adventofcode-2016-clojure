@@ -42,16 +42,20 @@
 
 (defn rotate-and-move
   "Rotate and move."
-  ([{:keys [dir pos]} {:keys [rot steps]}]
-   (let [new-dir (rotate rot dir)
-         new-pos (move new-dir steps pos)]
-     (assoc {} :dir new-dir :pos new-pos))))
+  [{:keys [dir pos]} {:keys [rot steps]}]
+  (let [new-dir (rotate rot dir)
+        new-pos (move new-dir steps pos)]
+    (assoc {} :dir new-dir :pos new-pos)))
+
+(def trace-path
+  (partial reduce #(conj %1 (rotate-and-move (last %1) %2)) [start]))
 
 (def parse-move-and-get-distance
   (comp
    distance
    (partial :pos)
-   (partial reduce rotate-and-move start)
+   last
+   trace-path
    parse-input))
 
 (defn solve

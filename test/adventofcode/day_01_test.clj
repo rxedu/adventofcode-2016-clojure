@@ -2,8 +2,13 @@
   (:require [clojure.test :refer :all]
             [adventofcode.day-01 :refer :all]))
 
+(deftest parse-move-test
+  (is (= [{:rot :left :steps 7}] (parse-input "L7")))
+  (is (= [{:rot :right :steps 2}] (parse-input "R2"))))
+
 (deftest parse-input-test
-  (is (= [{:rot :left :steps 4} {:rot :right :steps 365}] (parse-input "L4, R365"))))
+  (is (= [{:rot :left :steps 4} {:rot :right :steps 365}]
+         (parse-input "L4, R365"))))
 
 (deftest rotate-test
   (is (= [-1 0] (rotate :left [0 1])))
@@ -22,4 +27,5 @@
   (is (= 7 (distance [0 -7]))))
 
 (deftest rotate-and-move-test
-  (is (= {:dir [-1 0] :pos [-5 0]} (rotate-and-move {:dir [0 1] :pos [0 0]} {:rot :left :steps 5}))))
+  (is (= {:dir [-1 0] :pos [-5 0] :pts [[-1 0] [-2 0] [-3 0] [-4 0] [-5 0]]}
+         (rotate-and-move {:dir [0 1] :pos [0 0]} {:rot :left :steps 5}))))

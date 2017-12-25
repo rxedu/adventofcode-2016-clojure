@@ -8,9 +8,10 @@
   {:left [[0 -1] [1 0]]
    :right [[0 1] [-1 0]]})
 
-(def start {:dir [0, 1], :pos [0, 0]})
+(def start {:dir [0, 1], :pos [0, 0] :pts []})
 
 (defn parse-move
+  "Parse move into a map."
   [move]
   (let [dirs {"L" :left "R" :right}
         dir (first move)
@@ -18,6 +19,7 @@
     (assoc {} :rot (dirs (str dir)) :steps (Integer/parseInt n))))
 
 (defn parse-input
+  "Parse list of moves into a list of maps."
   [input]
   (let [moves (clojure.string/split (clojure.string/trim-newline input) #", ")]
     (map parse-move moves)))
@@ -44,8 +46,9 @@
   "Rotate and move."
   [{:keys [dir pos]} {:keys [rot steps]}]
   (let [new-dir (rotate rot dir)
-        new-pos (move new-dir steps pos)]
-    (assoc {} :dir new-dir :pos new-pos)))
+        new-pts (map #(move new-dir % pos) (range 1 (inc steps)))
+        new-pos (last new-pts)]
+    (assoc {} :dir new-dir :pos new-pos :pts new-pts)))
 
 (def trace-path
   (partial reduce #(conj %1 (rotate-and-move (last %1) %2)) [start]))
@@ -71,9 +74,10 @@
 (def parse-move-and-get-distance-to-first-revisit
   (comp
    distance
-   last
+   first
    stop-at-first-revisit
-   (partial map #(get % :pos))
+   (partial apply concat)
+   (partial map #(get % :pts))
    trace-path
    parse-input))
 

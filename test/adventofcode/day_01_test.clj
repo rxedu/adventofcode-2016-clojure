@@ -3,8 +3,8 @@
             [adventofcode.day-01 :refer :all]))
 
 (deftest parse-move-test
-  (is (= [{:rot :left :steps 7}] (parse-input "L7")))
-  (is (= [{:rot :right :steps 2}] (parse-input "R2"))))
+  (is (= {:rot :left :steps 7} (parse-move "L7")))
+  (is (= {:rot :right :steps 2} (parse-move "R2"))))
 
 (deftest parse-input-test
   (is (= [{:rot :left :steps 4} {:rot :right :steps 365}]

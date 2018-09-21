@@ -3,9 +3,9 @@
   :url "https://github.com/rxedu/adventofcode-2016"
   :license {:name "MIT"
             :url "https://opensource.org/licenses/MIT"}
-  :dependencies [[org.clojure/clojure "1.8.0"]
-                 [net.mikera/core.matrix "0.61.0"]
-                 [net.mikera/vectorz-clj "0.47.0"]]
+  :dependencies [[org.clojure/clojure "1.9.0"]
+                 [net.mikera/core.matrix "0.62.0"]
+                 [net.mikera/vectorz-clj "0.48.0"]]
   :main ^:skip-aot adventofcode.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

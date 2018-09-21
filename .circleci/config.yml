@@ -19,7 +19,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.m2
-          key: m2-{{ arch}}-{{ checksum "project.clj" }}
+          key: m2-{{ arch }}-{{ checksum "project.clj" }}
       - run:
           name: Test, run, and build
           command: lein do test, run, uberjar

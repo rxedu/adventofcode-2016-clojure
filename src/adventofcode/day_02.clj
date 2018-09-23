@@ -1,4 +1,5 @@
-(ns adventofcode.day-02)
+(ns adventofcode.day-02
+  (:require [clojure.set]))
 
 (def starting-button 5)
 

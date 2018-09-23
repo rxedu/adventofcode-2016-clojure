@@ -1,6 +1,12 @@
 (ns adventofcode.day-02-test
-  (:require [clojure.test :refer :all]
-            [adventofcode.day-02 :refer :all]))
+  (:require [clojure.test :refer [deftest is]]
+            [adventofcode.day-02 :refer
+             [move-on-allowed-grid
+              move-to-button
+              move-for-sequence-to-button
+              find-code
+              parse-input
+              parse-directions-and-get-code]]))
 
 (deftest move-on-allowed-grid-test
   (is (= [-1 -1] (move-on-allowed-grid [0 0] [-1 -1])))

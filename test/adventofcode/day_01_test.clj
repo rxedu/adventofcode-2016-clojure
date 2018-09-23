@@ -1,6 +1,12 @@
 (ns adventofcode.day-01-test
-  (:require [clojure.test :refer :all]
-            [adventofcode.day-01 :refer :all]))
+  (:require [clojure.test :refer [deftest is]]
+            [adventofcode.day-01 :refer
+             [parse-move
+              parse-input
+              rotate
+              move
+              distance
+              rotate-and-move]]))
 
 (deftest parse-move-test
   (is (= {:rot :left :steps 7} (parse-move "L7")))

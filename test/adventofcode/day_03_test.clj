@@ -3,6 +3,7 @@
             [adventofcode.day-03 :refer
              [triangle?
               count-triangles
+              get-vertical-triangles
               parse-triangle
               parse-input
               parse-and-count-triangles]]))
@@ -27,3 +28,14 @@
 (deftest parse-and-count-triangles-test
   (is (= 1 (parse-and-count-triangles
             "\n  827  272  126\n   77   43   22\n    3    4    5"))))
+
+(deftest get-vertical-triangles-test
+  (is (= (set [[827 77 55]
+               [272 43 9]
+               [126 2 11]
+               [27 7 5]
+               [72 3 9]
+               [26 2 1]])
+         (set (get-vertical-triangles
+               [[827 272 126] [77 43 2] [55 9 11]
+                [27 72 26] [7 3 2] [5 9 1]])))))

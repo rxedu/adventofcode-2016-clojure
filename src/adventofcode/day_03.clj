@@ -1,5 +1,6 @@
 (ns adventofcode.day-03
   (:require [clojure.string :as string]
+            [clojure.core.matrix :as matrix]
             [adventofcode.parse :as parse]))
 
 (defn triangle-rule? [a b c] (< c (+ a b)))
@@ -21,15 +22,25 @@
   (let [reducer (fn [n t] (if (apply triangle? t) (inc n) n))]
     (reduce reducer 0 triangles)))
 
+(def get-vertical-triangles
+  (comp
+   (partial partition 3)
+   flatten
+   matrix/transpose))
+
 (def parse-input
   (comp (partial map parse-triangle) rest parse/lines))
 
 (def parse-and-count-triangles
   (comp count-triangles parse-input))
 
+(def parse-and-count-vertical-triangles
+  (comp count-triangles get-vertical-triangles parse-input))
+
 (defn solve
   "Given the input for the day, returns the solution."
   [input]
   ((juxt
-    parse-and-count-triangles)
+    parse-and-count-triangles
+    parse-and-count-vertical-triangles)
    input))

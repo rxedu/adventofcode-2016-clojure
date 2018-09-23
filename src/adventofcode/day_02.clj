@@ -1,5 +1,7 @@
 (ns adventofcode.day-02
-  (:require [clojure.set]))
+  (:require [clojure.string :as string]
+            clojure.set
+            [adventofcode.parse :as parse]))
 
 (def starting-button 5)
 
@@ -73,7 +75,7 @@
 (defn parse-input
   "Parse list of directions into a list of lists"
   [input]
-  (let [lines (clojure.string/split-lines (clojure.string/trim-newline input))]
+  (let [lines (parse/lines input)]
     (map (partial map str) lines)))
 
 (defn parse-directions-and-get-code

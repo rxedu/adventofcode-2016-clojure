@@ -1,4 +1,6 @@
-(ns adventofcode.day-01)
+(ns adventofcode.day-01
+  (:require [clojure.string :as string]
+            [adventofcode.parse :as parse]))
 
 (require 'clojure.core.matrix)
 
@@ -15,13 +17,13 @@
   [move]
   (let [dirs {"L" :left "R" :right}
         dir (first move)
-        n (clojure.string/join (rest move))]
-    (assoc {} :rot (dirs (str dir)) :steps (Integer/parseInt n))))
+        n (string/join (rest move))]
+    (assoc {} :rot (dirs (str dir)) :steps (parse/integer n))))
 
 (defn parse-input
   "Parse list of moves into a list of maps."
   [input]
-  (let [moves (clojure.string/split (clojure.string/trim-newline input) #", ")]
+  (let [moves (string/split (string/trim-newline input) #", ")]
     (map parse-move moves)))
 
 (defn rotate

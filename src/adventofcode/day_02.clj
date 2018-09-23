@@ -35,34 +35,40 @@
    "L" [-1 0]
    "R" [1 0]})
 
-(def button-coordinates square-button-coordinates)
+(def get-coordinate-buttons clojure.set/map-invert)
 
-(def starting-coordinate (button-coordinates starting-button))
-(def coordinate-buttons (clojure.set/map-invert button-coordinates))
-
-(defn is-on-allowed-grid [point] (contains? coordinate-buttons point))
+(defn is-on-allowed-grid
+  [button-coordinates point]
+  (let [coordinate-buttons (get-coordinate-buttons button-coordinates)]
+    (contains? coordinate-buttons point)))
 
 (defn move-on-grid
   [point movement]
   (map + point movement))
 
 (defn move-on-allowed-grid
-  [point movement]
+  [button-coordinates point movement]
   (let [new-point (move-on-grid point movement)]
-    (if (is-on-allowed-grid new-point) new-point point)))
+    (if (is-on-allowed-grid button-coordinates new-point) new-point point)))
 
 (defn move-to-button
-  [button direction]
-  (let [point (button-coordinates button)
+  [button-coordinates button direction]
+  (let [coordinate-buttons (get-coordinate-buttons button-coordinates)
+        point (button-coordinates button)
         movement (direction-movements direction)
-        new-point (move-on-allowed-grid point movement)]
+        new-point (move-on-allowed-grid button-coordinates point movement)]
     (coordinate-buttons new-point)))
 
-(def move-for-sequence-to-button (partial reduce move-to-button))
+(defn move-for-sequence-to-button
+  [button-coordinates & args]
+  (apply (partial reduce (partial move-to-button button-coordinates)) args))
 
 (defn find-code
-  [button directions]
-  (rest (reductions move-for-sequence-to-button starting-button directions)))
+  [button-coordinates button directions]
+  (rest (reductions
+         (partial move-for-sequence-to-button button-coordinates)
+         starting-button
+         directions)))
 
 (defn parse-input
   "Parse list of directions into a list of lists"
@@ -70,13 +76,16 @@
   (let [lines (clojure.string/split-lines (clojure.string/trim-newline input))]
     (map (partial map str) lines)))
 
-(def parse-directions-and-get-code
-  (comp (partial find-code starting-button) parse-input))
+(defn parse-directions-and-get-code
+  [button-coordinates input]
+  ((comp (partial find-code button-coordinates starting-button)
+         parse-input)
+   input))
 
 (defn solve
   "Given the input for the day, returns the solution."
   [input]
-  (juxt
-   [parse-directions-and-get-code
-    parse-directions-and-get-code]
+  ((juxt
+    (partial parse-directions-and-get-code square-button-coordinates)
+    (partial parse-directions-and-get-code star-button-coordinates))
    input))

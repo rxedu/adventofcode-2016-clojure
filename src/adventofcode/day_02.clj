@@ -60,15 +60,9 @@
 
 (def move-for-sequence-to-button (partial reduce move-to-button))
 
-(defn code-reducer
-  [acc directions]
-  (let [{button :button code :code} acc
-        next-button (move-for-sequence-to-button button directions)]
-    (hash-map :button next-button :code (conj code next-button))))
-
 (defn find-code
   [button directions]
-  (:code (reduce code-reducer {:button button :code []} directions)))
+  (rest (reductions move-for-sequence-to-button starting-button directions)))
 
 (defn parse-input
   "Parse list of directions into a list of lists"

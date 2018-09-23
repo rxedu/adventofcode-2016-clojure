@@ -84,5 +84,7 @@
 (defn solve
   "Given the input for the day, returns the solution."
   [input]
-  [(parse-move-and-get-distance input)
-   (parse-move-and-get-distance-to-first-revisit input)])
+  (juxt
+   [parse-move-and-get-distance
+    parse-move-and-get-distance-to-first-revisit]
+   input))

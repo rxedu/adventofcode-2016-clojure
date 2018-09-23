@@ -76,5 +76,7 @@
 (defn solve
   "Given the input for the day, returns the solution."
   [input]
-  [(parse-directions-and-get-code input)
-   (parse-directions-and-get-code input)])
+  (juxt
+   [parse-directions-and-get-code
+    parse-directions-and-get-code]
+   input))

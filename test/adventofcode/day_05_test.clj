@@ -24,5 +24,5 @@
   (is (= [\1] (search-next [] "abc" 3231929)))
   (is (= [\c] (search-next [\c] "abc" 3231932))))
 
-; (deftest get-password-test
-;   (is (= [\1 \8] (get-password "abc" 2 3231925))))
+(deftest get-password-test
+  (is (= [\1 \8] (get-password "abc" 2 3231925))))

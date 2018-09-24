@@ -31,7 +31,7 @@
         (reduced pass)
         (search-next pass door idx)))
     []
-    (range start))))
+    (iterate inc start))))
 
 (def parse-and-find-password
   (comp string/join get-password string/trim))

@@ -2,6 +2,7 @@
   (:require [clojure.string :as string]
             [adventofcode.parse :as parse]))
 
+(def hash-length 5)
 (def target-room "northpole object storage")
 
 (defn parse-room
@@ -29,7 +30,7 @@
 (defn get-top-groups
   [{xs :letters}]
   (let [freq (frequencies xs)
-        top-counts (set ((comp (partial take 5) reverse sort vals) freq))
+        top-counts (set ((comp (partial take hash-length) reverse sort vals) freq))
         groups (group-by
                 (fn [l] (let [n (freq l)
                               top (contains? top-counts n)]
@@ -41,7 +42,7 @@
   (let [groups (get-top-groups room)
         sorted-groups (into (sorted-map-by >) groups)
         sorted-vals (map sort (vals sorted-groups))]
-    (apply str ((comp (partial take 5) flatten) sorted-vals))))
+    (apply str ((comp (partial take hash-length) flatten) sorted-vals))))
 
 (defn room?
   [room]

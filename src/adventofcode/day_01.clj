@@ -12,11 +12,12 @@
 
 (def start {:dir [0, 1], :pos [0, 0] :pts []})
 
+(def dirs {"L" :left "R" :right})
+
 (defn parse-move
   "Parse move into a map."
   [move]
-  (let [dirs {"L" :left "R" :right}
-        dir (first move)
+  (let [dir (first move)
         n (string/join (rest move))]
     (assoc {} :rot (dirs (str dir)) :steps (parse/integer n))))
 

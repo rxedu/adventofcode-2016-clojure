@@ -9,10 +9,12 @@
   [room]
   (let [xs ((comp (partial map vec) butlast)
             (string/split room #"-"))]
-    {:id ((comp parse/integer first) (string/split (last (string/split room #"-")) #"\["))
+    {:id ((comp parse/integer first)
+          (string/split (last (string/split room #"-")) #"\["))
      :name-parts (map vec xs)
      :letters ((comp (partial map str) flatten) xs)
-     :hash ((comp (partial apply str) drop-last last) (string/split room #"\["))}))
+     :hash ((comp (partial apply str) drop-last last)
+            (string/split room #"\["))}))
 
 (def inc-char (comp char inc int))
 (defn inc-alph [c] (if (= c \z) \a (inc-char c)))
@@ -30,7 +32,12 @@
 (defn get-top-groups
   [{xs :letters}]
   (let [freq (frequencies xs)
-        top-counts (set ((comp (partial take hash-length) reverse sort vals) freq))
+        top-counts (set ((comp
+                          (partial take hash-length)
+                          reverse
+                          sort
+                          vals)
+                         freq))
         groups (group-by
                 (fn [l] (let [n (freq l)
                               top (contains? top-counts n)]

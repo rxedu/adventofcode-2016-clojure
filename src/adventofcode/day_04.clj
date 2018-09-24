@@ -13,7 +13,7 @@
           (string/split (last (string/split room #"-")) #"\["))
      :name-parts (map vec xs)
      :letters ((comp (partial map str) flatten) xs)
-     :hash ((comp (partial apply str) drop-last last)
+     :hash ((comp string/join drop-last last)
             (string/split room #"\["))}))
 
 (def inc-char (comp char inc int))
@@ -27,7 +27,7 @@
   [id name-parts]
   (let [shift-part (partial map (partial shift-char id))
         dec-name-parts (map shift-part name-parts)]
-    (string/join " " (map (partial apply str) dec-name-parts))))
+    (string/join " " (map string/join dec-name-parts))))
 
 (defn get-top-groups
   [{xs :letters}]
@@ -49,7 +49,7 @@
   (let [groups (get-top-groups room)
         sorted-groups (into (sorted-map-by >) groups)
         sorted-vals (map sort (vals sorted-groups))]
-    (apply str ((comp (partial take hash-length) flatten) sorted-vals))))
+    (string/join ((comp (partial take hash-length) flatten) sorted-vals))))
 
 (defn room?
   [room]

@@ -3,6 +3,7 @@
             [adventofcode.day-04 :refer
              [room?
               get-hash
+              get-name
               sum-ids
               parse-room]]))
 
@@ -12,6 +13,9 @@
 (deftest get-hash-test
   (is (= "abxyz" (get-hash good-room)))
   (is (= "qbyzt" (get-hash bad-room))))
+
+(deftest get-name-test
+  (is (= "ve en na" (get-name 343 [[\q \z] [\z \i] [\i \v]]))))
 
 (deftest room?-test
   (is (true? (room? good-room)))
@@ -23,5 +27,6 @@
 (deftest parse-room-test
   (is (= {:letters ["a" "a" "a" "a" "a" "b" "b" "b" "z" "y" "y" "x"]
           :hash "abxyz"
+          :name-parts [[\a \a \a \a \a] [\b \b \b] [\z] [\y] [\y] [\x]]
           :id 123}
          (parse-room "aaaaa-bbb-z-y-y-x-123[abxyz]"))))

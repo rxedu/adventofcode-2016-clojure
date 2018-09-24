@@ -13,9 +13,9 @@
   (is (= "abxyz" (get-hash good-room)))
   (is (= "qbyzt" (get-hash bad-room))))
 
-; (deftest room?-test
-;   (is (true? (room? good-room)))
-;   (is (false? (room? bad-room))))
+(deftest room?-test
+  (is (true? (room? good-room)))
+  (is (false? (room? bad-room))))
 
 (deftest sum-ids-test
   (is (= 246 (sum-ids [good-room good-room bad-room]))))

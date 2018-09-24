@@ -26,8 +26,8 @@
 (defn get-name
   [id name-parts]
   (let [shift-part (partial map (partial shift-char id))
-        dec-name-parts (map shift-part name-parts)]
-    (string/join " " (map string/join dec-name-parts))))
+        shift-parts (map shift-part name-parts)]
+    (string/join " " (map string/join shift-parts))))
 
 (defn get-top-groups
   [{xs :letters}]

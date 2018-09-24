@@ -29,7 +29,7 @@
    matrix/transpose))
 
 (def parse-input
-  (comp (partial map parse-triangle) parse/lines))
+  (partial parse/map-lines parse-triangle))
 
 (def parse-and-count-triangles
   (comp count-triangles parse-input))

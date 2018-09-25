@@ -65,7 +65,7 @@
     (fn [pass idxs]
       (if
        (>= (count pass) length)
-        (reduced pass)
+        (reduced (take length pass))
         (concat pass (find-pass-seq door pass idxs))))
     []
     (partition batch-size (iterate inc start)))))

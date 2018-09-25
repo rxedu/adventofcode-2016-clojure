@@ -3,7 +3,7 @@
             [digest]
             [adventofcode.parse :as parse]))
 
-(def batch-size 1)
+(def batch-size 8)
 (def pass-length 8)
 (def hash-index 5)
 (def hash-pos-index 5)
@@ -54,8 +54,8 @@
   [door pass idxs]
   (let [decrypt-door (partial decrypt-2 door)
         reducer (fn [p idx]
-                  (remove nil? (conj p (decrypt-door p idx))))
-        results (reduce reducer pass idxs)]
+                  (remove nil? (conj p (decrypt-door (concat p pass) idx))))
+        results (reduce reducer [] idxs)]
     results))
 
 (defn get-password

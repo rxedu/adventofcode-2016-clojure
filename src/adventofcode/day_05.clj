@@ -1,7 +1,6 @@
 (ns adventofcode.day-05
   (:require [clojure.string :as string]
-            [digest]
-            [adventofcode.parse :as parse]))
+            [digest]))
 
 (def batch-size 8)
 (def pass-length 8)

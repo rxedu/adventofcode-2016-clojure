@@ -3,7 +3,6 @@
             [adventofcode.day-05 :refer
              [get-hash
               get-pass-char
-              search-next
               target-hash?
               get-password]]))
 
@@ -18,11 +17,6 @@
 
 (deftest get-pass-char-test
   (is (= \1 (get-pass-char "00000155f8105dff7f56ee10fa9b9abd"))))
-
-(deftest search-next-test
-  (is (= [] (search-next [] "abc" 3231928)))
-  (is (= [\1] (search-next [] "abc" 3231929)))
-  (is (= [\c] (search-next [\c] "abc" 3231932))))
 
 (deftest get-password-test
   (is (= [\1 \8] (get-password "abc" 2 3231925))))

@@ -3,6 +3,7 @@
             [digest]
             [adventofcode.parse :as parse]))
 
+(def batch-size 8)
 (def pass-length 8)
 (def hash-index 5)
 (def hash-prefix "00000")
@@ -13,25 +14,30 @@
 
 (def get-pass-char #(nth % hash-index))
 
-(defn search-next
-  [pass door idx]
-  (let [h (get-hash door idx)
-        next-char (get-pass-char h)]
+(defn decrypt-simple
+  [door idx]
+  (let [h (get-hash door idx)]
     (if (target-hash? h)
-      (conj pass next-char)
-      pass)))
+      (get-pass-char h)
+      nil)))
+
+(defn find-pass-chars
+  [door idxs]
+  (let [decrypt (partial decrypt-simple door)
+        results (pmap decrypt idxs)]
+    (remove nil? results)))
 
 (defn get-password
   ([door] (get-password door pass-length 0))
   ([door length start]
    (reduce
-    (fn [pass idx]
+    (fn [pass idxs]
       (if
-       (= (count pass) length)
+       (>= (count pass) length)
         (reduced pass)
-        (search-next pass door idx)))
+        (concat pass (find-pass-chars door idxs))))
     []
-    (iterate inc start))))
+    (partition batch-size (iterate inc start)))))
 
 (def parse-and-find-password
   (comp string/join get-password string/trim))

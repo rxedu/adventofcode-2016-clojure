@@ -6,6 +6,7 @@
               get-pass-chars
               get-pass-pos
               valid-pos?
+              read-pass-pos
               target-hash?]]))
 
 (deftest get-hash-test
@@ -31,3 +32,6 @@
 
 (deftest get-password-pos-test
   (is (= [{:k 1 :v \5}] (get-pass-pos "abc" 1 3231928))))
+
+(deftest read-pass-pos-test
+  (is (= [\5 \a] (read-pass-pos [{:k 2 :v \a} {:k 1 :v \5}]))))

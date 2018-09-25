@@ -73,7 +73,7 @@
 (def get-pass-chars (partial get-password find-pass-1))
 (def get-pass-pos (partial get-password find-pass-2))
 
-(def read-pass-pos (partial map :v))
+(def read-pass-pos (comp (partial map :v) (partial into (sorted-map))))
 
 (def parse-and-find-password
   (comp string/join get-pass-chars string/trim))

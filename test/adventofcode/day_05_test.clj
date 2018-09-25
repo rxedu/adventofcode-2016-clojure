@@ -3,8 +3,10 @@
             [adventofcode.day-05 :refer
              [get-hash
               get-pass-char
-              target-hash?
-              get-password]]))
+              get-pass-chars
+              get-pass-pos
+              valid-pos?
+              target-hash?]]))
 
 (deftest get-hash-test
   (is (= "71c0a2a39d825b4b4ac6a74257fc6eda" (get-hash "adb" 5)))
@@ -15,8 +17,17 @@
   (is (true? (target-hash? "00000155f8105dff7f56ee10fa9b9abd")))
   (is (true? (target-hash? "00000a39d825b4b4ac6a74257fc6eda"))))
 
+(deftest valid-pos?-test
+  (is (true? (valid-pos? {:k 4 :v \b} [])))
+  (is (false? (valid-pos? {:k 10 :v \b} [])))
+  (is (false? (valid-pos? {:k 3 :v \b} [{:k 3 :v \q}])))
+  (is (true? (valid-pos? {:k 3 :v \b} [{:k 4 :v \b}]))))
+
 (deftest get-pass-char-test
   (is (= \1 (get-pass-char "00000155f8105dff7f56ee10fa9b9abd"))))
 
-(deftest get-password-test
-  (is (= [\1 \8] (get-password "abc" 2 3231925))))
+(deftest get-password-chars-test
+  (is (= [\1] (get-pass-chars "abc" 1 3231925))))
+
+(deftest get-password-pos-test
+  (is (= [{:k 1 :v \5}] (get-pass-pos "abc" 1 3231928))))

@@ -3,7 +3,7 @@
             [digest]
             [adventofcode.parse :as parse]))
 
-(def batch-size 8)
+(def batch-size 1)
 (def pass-length 8)
 (def hash-index 5)
 (def hash-pos-index 5)

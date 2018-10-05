@@ -1,7 +1,8 @@
 (ns adventofcode.day-06-test
   (:require [clojure.test :refer [deftest is]]
             [adventofcode.day-06 :refer
-             [find-message]]))
+             [top-key
+              find-message]]))
 
 (def messages
   (map #(clojure.string/split % #"")
@@ -23,4 +24,4 @@
         "enarar"]))
 
 (deftest find-message-test
-  (is (= "easter" (find-message messages))))
+  (is (= "easter" (find-message top-key messages))))

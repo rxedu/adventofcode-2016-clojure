@@ -3,21 +3,29 @@
             [clojure.core.matrix :as matrix]
             [adventofcode.parse :as parse]))
 
-(def top-key (comp key (partial apply max-key val)))
+(defn x-key [f] (comp key (partial apply f val)))
+(def top-key (x-key max-key))
+(def bot-key (x-key min-key))
 
 (defn find-message
-  [messages]
+  [f messages]
   (let [chars-in-pos (matrix/transpose messages)
         freq (map frequencies chars-in-pos)
-        top-chars (map top-key freq)]
+        top-chars (map f freq)]
     (string/join top-chars)))
 
 (def parse-messages (partial parse/map-lines #(clojure.string/split % #"")))
-(def parse-and-find-message (comp find-message parse-messages))
+
+(def parse-and-find-message-1
+  (comp (partial find-message top-key) parse-messages))
+
+(def parse-and-find-message-2
+  (comp (partial find-message bot-key) parse-messages))
 
 (defn solve
   "Given the input for the day, returns the solution."
   [input]
   ((juxt
-    parse-and-find-message)
+    parse-and-find-message-1
+    parse-and-find-message-2)
    input))

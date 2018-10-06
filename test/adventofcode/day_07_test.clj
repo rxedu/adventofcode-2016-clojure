@@ -5,7 +5,7 @@
               tls?
               has-abba?
               find-hypernets
-              find-substrs]]))
+              find-supernets]]))
 
 (deftest abba?-test
   (is (true? (abba? "abba")))
@@ -16,13 +16,13 @@
   (is (false? (abba? "xxyx")))
   (is (false? (abba? "aaaa"))))
 
-(deftest find-substrs-test
-  (is (= ["abc" "qrrt"] (find-substrs "abc[dddjejid]qrrt[dd]")))
-  (is (= ["" "qrrt"] (find-substrs "[dddjejid]qrrt[dd]")))
-  (is (= ["qrrt"] (find-substrs "qrrt[dd]")))
-  (is (= ["qrrtlkjlk"] (find-substrs "qrrtlkjlk")))
-  (is (= [] (find-substrs "[qrrtlkjlk]")))
-  (is (= ["" "qrrt" "ppp"] (find-substrs "[dddjejid]qrrt[dd]ppp"))))
+(deftest find-supernets-test
+  (is (= ["abc" "qrrt"] (find-supernets "abc[dddjejid]qrrt[dd]")))
+  (is (= ["" "qrrt"] (find-supernets "[dddjejid]qrrt[dd]")))
+  (is (= ["qrrt"] (find-supernets "qrrt[dd]")))
+  (is (= ["qrrtlkjlk"] (find-supernets "qrrtlkjlk")))
+  (is (= [] (find-supernets "[qrrtlkjlk]")))
+  (is (= ["" "qrrt" "ppp"] (find-supernets "[dddjejid]qrrt[dd]ppp"))))
 
 (deftest find-hypernets-test
   (is (= ["dddjejid" "dd"] (find-hypernets "abc[dddjejid]qrrt[dd]")))

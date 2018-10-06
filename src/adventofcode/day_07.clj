@@ -10,7 +10,7 @@
    #(= (nth % 1) (nth % 2))
    #(not= (first %) (nth % 1))))
 
-(def find-substrs #(string/split % #"\[[^\[]+\]"))
+(def find-supernets #(string/split % #"\[[^\[]+\]"))
 
 (def find-hypernets
   (let [xform (comp
@@ -34,9 +34,9 @@
 
 (defn tls?
   [s]
-  (let [substrs (find-substrs s)
+  (let [supernets (find-supernets s)
         hypernets (find-hypernets s)]
-    (and (some has-abba? substrs)
+    (and (some has-abba? supernets)
          (not-any? has-abba? hypernets))))
 
 (def parse-and-count-tls

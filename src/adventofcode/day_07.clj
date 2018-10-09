@@ -1,7 +1,6 @@
 (ns adventofcode.day-07
   (:require [clojure.string :as string]
             clojure.set
-            [clojure.core.matrix :as matrix]
             [adventofcode.parse :as parse]))
 
 (def abba?

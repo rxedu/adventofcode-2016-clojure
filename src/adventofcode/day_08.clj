@@ -43,10 +43,19 @@
     (parse-rect s)
     (parse-rotate s)))
 
+(def display
+  (comp
+   #(doseq [x %] (println x))
+   (partial matrix/transpose)
+   (partial matrix/emap {0 " " 1 "#"})))
+
 (def animate
   (partial
    reduce
-   (fn [s {t :type :as i}] ((t actions) s i))
+   (fn [s {t :type :as i}]
+     (let [new-s ((t actions) s i)]
+       ; (display new-s)
+       new-s))
    screen))
 
 (defn parse-and-x
@@ -55,12 +64,6 @@
    f
    animate
    (partial parse/map-lines parse-instruction)))
-
-(def display
-  (comp
-   #(doseq [x %] (println x))
-   (partial matrix/transpose)
-   (partial matrix/emap {0 " " 1 "#"})))
 
 (def parse-and-count (parse-and-x (partial matrix/ereduce +)))
 

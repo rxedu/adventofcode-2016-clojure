@@ -49,15 +49,26 @@
    (fn [s {t :type :as i}] ((t actions) s i))
    screen))
 
-(def parse-and-count
+(defn parse-and-x
+  [f]
   (comp
-   (partial matrix/ereduce +)
+   f
    animate
    (partial parse/map-lines parse-instruction)))
+
+(def parse-and-count (parse-and-x (partial matrix/ereduce +)))
+
+(def parse-and-display
+  (parse-and-x
+   (comp
+    #(doseq [x %] (println x))
+    (partial matrix/transpose)
+    (partial matrix/emap {0 " " 1 "#"}))))
 
 (defn solve
   "Given the input for the day, returns the solution."
   [input]
   ((juxt
-    parse-and-count)
+    parse-and-count
+    parse-and-display)
    input))

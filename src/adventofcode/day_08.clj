@@ -8,7 +8,7 @@
 (defn rect-screen
   [m {:keys [x y]}]
   (matrix/emap-indexed
-   (fn [[i j] el] (if (and (< i x) (< j y)) 1 el))
+   (fn [[i j] el] (int (if (and (< i x) (< j y)) 1 el)))
    m))
 
 (defn rotate-screen
@@ -51,7 +51,6 @@
 
 (def parse-and-count
   (comp
-   int
    (partial matrix/ereduce +)
    animate
    (partial parse/map-lines parse-instruction)))

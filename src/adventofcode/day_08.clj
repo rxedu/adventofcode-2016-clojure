@@ -56,14 +56,15 @@
    animate
    (partial parse/map-lines parse-instruction)))
 
+(def display
+  (comp
+   #(doseq [x %] (println x))
+   (partial matrix/transpose)
+   (partial matrix/emap {0 " " 1 "#"})))
+
 (def parse-and-count (parse-and-x (partial matrix/ereduce +)))
 
-(def parse-and-display
-  (parse-and-x
-   (comp
-    #(doseq [x %] (println x))
-    (partial matrix/transpose)
-    (partial matrix/emap {0 " " 1 "#"}))))
+(def parse-and-display (parse-and-x display))
 
 (defn solve
   "Given the input for the day, returns the solution."

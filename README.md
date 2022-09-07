@@ -1,7 +1,7 @@
 # Advent of Code Solutions 2016 (in Clojure)
 
-[![GitHub license](https://img.shields.io/github/license/rxedu/adventofcode-2016.svg)](./LICENSE.txt)
-[![CircleCI](https://img.shields.io/circleci/project/github/rxedu/adventofcode-2015/master.svg)](https://circleci.com/gh/rxedu/adventofcode-2016)
+[![GitHub license](https://img.shields.io/github/license/rxedu/adventofcode-2016-clojure.svg)](./LICENSE.txt)
+[![CircleCI](https://img.shields.io/circleci/project/github/rxedu/adventofcode-2016/master.svg)](https://circleci.com/gh/rxedu/adventofcode-2016-clojure)
 
 My solutions to the [Advent of Code 2016] puzzles.
 
@@ -45,7 +45,7 @@ If you just want to generate solutions you will need Java.
    $ java -jar adventofcode-2016-1.0.0-standalone.jar 3
    ```
 
-[release]: https://github.com/rxedu/adventofcode-2016/releases
+[release]: https://github.com/rxedu/adventofcode-2016-clojure/releases
 
 ## Development
 
